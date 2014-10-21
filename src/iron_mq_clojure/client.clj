@@ -1,5 +1,5 @@
 (ns iron-mq-clojure.client
-  (:use [cheshire.core :only [parse-string generate-string]])
+  (:require [cheshire.core :refer [parse-string generate-string]])
   (:import (java.net URL)))
 
 (def aws-host "mq-aws-us-east-1.iron.io")
@@ -10,7 +10,7 @@
 
   token - can be obtained from hud.iron.io/tokens
   project-id - can be obtained from hud.iron.io
-  
+
   Options can be:
   :api-version - the version of the API to use, as an int. Defaults to 1.
   :scheme - the HTTP scheme to use when communicating with the server. Defaults to https.
@@ -31,7 +31,7 @@
 (defn create-message
   "Creates a message that can then be pushed to a queue.
   body - is the body of the message.
-  
+
   Options can be:
   :timeout - the timeout (in seconds) after which the message will be returned to the
              queue, after a successful get-message or get-messages. Defaults to 60.
@@ -102,7 +102,7 @@
 
   client - an IronMQ client, created with create-client.
   queue - the name of a queue, passed as a string.
-  messages - an array of messages created with create-message. It can also be an 
+  messages - an array of messages created with create-message. It can also be an
              array of strings, which will be used as the body and passed through
              create-message."
   [client queue & messages]
@@ -116,7 +116,7 @@
 
 (defn post-message
   "Pushes a single message to a queue.
-  
+
   client - an IronMQ client, created with create-client.
   queue - the name of a queue, passed as a string.
   message - a message created with create-message. It can also be a string, which
@@ -126,17 +126,17 @@
 
 (defn get-messages
   "Returns an array of messages that are on a queue.
-  
+
   client - an IronMQ client, created with create-client.
   queue - the name of a queue, passed as a string.
   n - the number of messages to retrieve, passed as an int."
   [client queue n]
     (get (request client "GET" (format "/queues/%s/messages?n=%d" queue n) nil)
          "messages"))
-    
+
 (defn get-message
   "Returns a single message from a queue.
-  
+
   client - an IronMQ client, created with create-client.
   queue - the name of a queue, passed as a string."
   [client queue]
@@ -144,7 +144,7 @@
 
 (defn delete-message
   "Removes a message from a queue.
-  
+
   client - an IronMQ client, created with create-client.
   queue - the name of a queue, passed as a string.
   message - the message object to be removed, as retrieve from get-message

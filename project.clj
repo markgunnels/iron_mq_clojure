@@ -1,6 +1,5 @@
-(defproject iron_mq_clojure "1.0.3"
+(defproject iron_mq_clojure "1.0.4"
   :description "IronMQ Clojure Client"
-  :dependencies [[org.clojure/clojure "1.3.0"]
-                 [cheshire "2.2.2"]]
-  :multi-deps {"1.2.1" [[org.clojure/clojure "1.2.1"]
-                        [cheshire "2.2.2"]]})
+  :dependencies [[org.clojure/clojure "1.6.0"]
+                 [clj-http "1.0.0"]
+                 [cheshire "5.3.1"]])
